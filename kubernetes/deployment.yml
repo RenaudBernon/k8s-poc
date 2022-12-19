@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: poc
+  labels:
+    app: k8s-poc
+  name: k8s-poc
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: k8s-poc
+  template:
+    metadata:
+      labels:
+        app: k8s-poc
+    spec:
+      serviceAccountName: poc-sa
+      containers:
+        - image: k8s-poc
+          name: k8s-poc
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
